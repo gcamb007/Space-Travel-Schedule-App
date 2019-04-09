@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Space Travel App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+</head>
+
+<body>
+
+    <div id="carousel" class="carousel slide" data-ride="carousel" data-interval="3000" data-warp="false">
+        <div class="carousel-inner">
+            <div class="carousel-item carousel-fade active">
+                <img class="d-block w-100" src="./assets/images/2015_-_01_crs6_hangar.jpg" alt="Slide 01">
+            </div>
+            <div class="carousel-item carousel-fade">
+                <img class="d-block w-100" src="./assets/images/2012_-_9_crs1_launch.jpg" alt="Slide 02">
+            </div>
+            <div class="carousel-item carousel-fade">
+                <img class="d-block w-100" src="./assets/images/2014_-_2_crs3_launch_causeway_2.jpg" alt="Slide 03">
+            </div>
+            <div class="carousel-item carousel-fade">
+                <img class="d-block w-100" src="./assets/images/2014_-_5_falcon_9_thaicom_launch-01.png" alt="Slide 04">
+            </div>
+            <div class="carousel-item carousel-fade">
+                <img class="d-block w-100" src="./assets/images/2014_-_9crs4_streak.jpg" alt="Slide 05">
+            </div>
+            <div class="carousel-item carousel-fade">
+                <img class="d-block w-100" src="./assets/images/2012_-_3_falcon_9_cots2_launch-2.jpg" alt="Slide 06">
+            </div>
+            <div class="carousel-item carousel-fade">
+                <img class="d-block w-100" src="./assets/images/2015_-_03_crs6_launch_water.jpg" alt="Slide 07">
+            </div>
+            <div class="carousel-item carousel-fade">
+                <img class="d-block w-100" src="./assets/images/2015_-_06_f9-21_orbcomm_x_launch_and_land.jpg"
+                    alt="Slide 08">
+            </div>
+            <div class="carousel-item carousel-fade">
+                <img class="d-block w-100" src="./assets/images/bfrlunar_v2.jpg" alt="Slide 09">
+            </div>
+
+            <!-- Jumbotron -->
+            <div class="jumbotron j1 jumbotron-fluid mt-0 sticky-top">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8 marquee text-center">
+                        <h1>
+                            <img src="./assets/images/spacex-logo-black-and-white.png" class="logo" alt="SpaceX Logo">
+                            Transport Departure | Arrival Schedule
+                        </h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Form -->
+            <div class="row mt-5">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <div class="jumbotron j2 jumbotron-fluid mt-5">
+
+                        <form class="vesselName-form pl-5 pr-5">
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-5 text-light">
+                                    <label for="vesselName-input">
+                                        <h5>Vessel Name:</h5>
+                                    </label>
+                                    <input type="text" class="form-control border-dark" id="vesselName-input"
+                                        placeholder="Vessel Name">
+                                </div>
+                                <div class="form-group col-sm-2"></div>
+                                <div class="form-group col-sm-5 text-light">
+                                    <label for="destination-input">
+                                        <h5>Destination:</h5>
+                                    </label>
+                                    <input type="text" class="form-control border-dark" id="destination-input"
+                                        placeholder="Destination">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-sm-5 text-light">
+                                    <label for="commDate-input">
+                                        <h5>Commissioned Date:</h5>
+                                    </label>
+                                    <input type="text" class="form-control border-dark" id="commDate-input"
+                                        placeholder="MM/DD/YYYY">
+                                </div>
+                                <div class="form-group col-sm-2"></div>
+                                <div class="form-group col-sm-5 text-light">
+                                    <label for="frequency-input">
+                                        <h5>Departure Frequency:</h5>
+                                    </label>
+                                    <input type="text" class="form-control border-dark" id="frequency-input"
+                                        placeholder="In Months">
+                                </div>
+                            </div>
+
+                            <button for="name-form" id="addVessel" type="submit" class="btn mt-3" value="Submit">Submit
+                                Entry</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Table -->
+            <div class="card mb-4">
+                <div class="card-header"><strong>Transport Schedule</strong> </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover" id="vesselInfo">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name of Vessel:</th>
+                                <th scope="col">Destination:</th>
+                                <th scope="col">Vessel Commission:</th>
+                                <th scope="col">Departure Frequency:</th>
+                                <th scope="col">Next Departure Date:</th>
+                                <th scope="col">Days to Next Departure:</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <!-- moment script -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <!-- my scripts -->
+    <script src="./assets/javascript/app.js"></script>
+</body>
+
+</html>
