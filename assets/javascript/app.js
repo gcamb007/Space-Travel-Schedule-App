@@ -14,7 +14,7 @@ var dataRef = firebase.database();
 var vesselName = "";
 var destination = "";
 var commDate = "";
-var frequency = 500;
+var frequency = 0;
 
 $("#addVessel").on("click", function (event) {
     event.preventDefault();
@@ -32,7 +32,9 @@ $("#addVessel").on("click", function (event) {
         frequency: frequency,
     });
 
-    // var firstTime = "12:00";
+    
+
+    var firstTime = "12:00";
 
     // var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
     // console.log(firstTimeConverted);
@@ -53,6 +55,7 @@ $("#addVessel").on("click", function (event) {
     // console.log("Arrival Time: " + moment(nextTrain).format("hh:mm"));
 });
 
+
 dataRef.ref().on("value", function (snapshot) {
 
     var sv = snapshot.val();
@@ -65,12 +68,14 @@ dataRef.ref().on("value", function (snapshot) {
 });
 
 dataRef.ref().on("child_added", function (childSnapshot) {
-    // console.log(childSnapshot.val());
+   // console.log(childSnapshot.val());
 
     var vesselNameEntry = childSnapshot.val().vesselName;
     var vesselDestination = childSnapshot.val().destination;
     var vesselcommDate = childSnapshot.val().commDate;
     var vesselFrequency = childSnapshot.val().frequency;
+
+
 
     // console.log(vesselNameEntry);
     // console.log(vesselDestination);
